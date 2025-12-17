@@ -11,5 +11,5 @@ test('TestRandom', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Search our tutorials' }).press('Enter');
   await page.getByRole('link', { name: 'Playwrite IS - W3Schools' }).click();
   await page.locator('pre:nth-child(12)').click();
-  await page.getByRole('textbox').fill('Fuck you');
+  await page.getByRole('textbox').fill('How to use AI for QA inside inspect element');
 });
