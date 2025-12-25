@@ -11,7 +11,7 @@ const test= base.extend({
         await page.getByRole('textbox', { name: 'Password' }).click();
         await page.getByRole('textbox', { name: 'Password' }).fill('Password123');
         await page.getByRole('button', { name: 'Submit' }).click();
-        await use();
+        await use(page);
         await page.getByRole('combobox', { name: 'Search' }).click();
         await page.getByRole('combobox', { name: 'Search' }).fill('the oddyssey');
         

@@ -2,6 +2,7 @@ import {test} from './Fixtures';
 import { expect } from '@playwright/test';
 
 test("Testing app through Fixtures", async ({LoginFixture,page}) => {
+    await LoginFixture.locator("#menu-item-20 > a").click()
     await page.goto("https://www.google.com")
 })
 
