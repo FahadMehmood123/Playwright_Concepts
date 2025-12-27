@@ -3,6 +3,8 @@ import { expect } from '@playwright/test';
 
 test("Testing app through Fixtures", async ({LoginFixture,page}) => {
     await LoginFixture.locator("#menu-item-20 > a").click()
+    //ya wo jo state the Ficture.js mai usay he pick kary ga aur yahe say continue kary ga agr
+    //hum continue kary loginFixture use karna instead of page
     await page.goto("https://www.google.com")
 })
 
