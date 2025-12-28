@@ -21,7 +21,25 @@ test('Test-header', async ({ page }) => {
 
 });
 
-test.only("Test-Addition Fucntion",async ({page}) => {
+test('Number of Rows',async({page})=>{
+  // await page.waitForSelector('rt-tr-group');
+  // use .rt-tbody .rt-tr-group instead of directly accessing .rt-tr-group
+  // becase if we directly access .rt-tr-group then it will be difficult for vs code 
+  // to find it and it will throw timeout error  
+  const numberofrows=await page.locator('.rt-tbody .rt-tr-group');
+  const rowCount = await numberofrows.count();
+  console.log(rowCount);
+  // expect(rowCount).toEqual(10);
+
+})
+
+test('Number of Columns',async({page})=>{
+  const numberofcolumns=await page.locator('.rt-thead .rt-tr .rt-th');
+  // .rt-thead=parent .rt-tr=child .rt-th=grand child
+  expect(await numberofcolumns.count()).toEqual(7);
+})
+
+test("Test-Addition Fucntion",async ({page}) => {
   await page.locator("#addNewRecordButton").click()
   await expect.soft(page.locator('.modal-content')).toHaveScreenshot();
   await page.getByRole('textbox', { name: 'First Name' }).click();
@@ -42,8 +60,19 @@ test.only("Test-Addition Fucntion",async ({page}) => {
 })
 
 test("Search-Fuctionality",async ({page}) => {
-  await page.locator("input#searchBox").click()
-  await page.locator("input#searchBox").fill("Alden")
   
-
+  await page.locator("#searchBox").fill("Alden");
+  const numberofrows=await page.locator('.rt-tbody .rt-tr-group');
+  const rowCount = await numberofrows.count();
+  //step1: I need to calculate number of rows to limit our loop
+  for (let i=1;i<=numberofrows;i++){
+    const put=await page.locator(`.rt-tbody .rt-tr-group:nth-child(${i}) .rt-td:nth-child(1)`).textContent();
+    if(put=='Alden'){
+      expect(put).toEqual('Alden')
+    }
+    else{
+      expect(await page.locator(`.rt-tbody .rt-tr-group:nth-child(${i}) .rt-td:nth-child(i)`).textContent()).toEqual("");
+    }
+  }
+  
 })
