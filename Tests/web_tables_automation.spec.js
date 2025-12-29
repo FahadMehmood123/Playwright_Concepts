@@ -62,17 +62,22 @@ test("Test-Addition Fucntion",async ({page}) => {
 test("Search-Fuctionality",async ({page}) => {
   
   await page.locator("#searchBox").fill("Alden");
+  
   const numberofrows=await page.locator('.rt-tbody .rt-tr-group');
   const rowCount = await numberofrows.count();
-  //step1: I need to calculate number of rows to limit our loop
+  var count=0;
+  
+
   for (let i=1;i<=numberofrows;i++){
     const put=await page.locator(`.rt-tbody .rt-tr-group:nth-child(${i}) .rt-td:nth-child(1)`).textContent();
     if(put=='Alden'){
       expect(put).toEqual('Alden')
+      count++;
     }
     else{
-      expect(await page.locator(`.rt-tbody .rt-tr-group:nth-child(${i}) .rt-td:nth-child(i)`).textContent()).toEqual("");
+      expect(put).toEqual("");
     }
+    expect(count).toBeGreaterThan(0);
   }
   
 })
