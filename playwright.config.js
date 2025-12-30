@@ -37,7 +37,7 @@ export default defineConfig({
     // show browser
     headless: false,
     // video: 'on',
-    launchOptions: { slowMo: 50 },   // sab actions mein delay
+    launchOptions: { slowMo: 200 },   // sab actions mein delay
     trace: 'retain-on-failure',       // trace only if test fails
     // headless: false,
     // trace: 'retain-on-failure'

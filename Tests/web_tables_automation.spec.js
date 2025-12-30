@@ -69,6 +69,8 @@ test("Search-Fuctionality",async ({page}) => {
   
 
   for (let i=1;i<=numberofrows;i++){
+  //Keep in mind i value in loop should start from 1 as child(0) is not accessable in any DOM
+
     const put=await page.locator(`.rt-tbody .rt-tr-group:nth-child(${i}) .rt-td:nth-child(1)`).textContent();
     if(put=='Alden'){
       expect(put).toEqual('Alden')

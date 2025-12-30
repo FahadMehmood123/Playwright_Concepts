@@ -19,14 +19,14 @@ test("lengthinnbetween",async ({}) => {
 
 })
 
-test.only("text included",async({page})=>{
+test("text included",async({page})=>{
     await page.goto("https://practicetestautomation.com/practice-test-login/")
     const element=await page.locator('#login > h2').textContent();
     //text.Content() will get the text in an element
     expect(element).toContainTextIgnoreCase("test")
 })
 
-test.only("to Be Within Percentage",async({page})=>{
+test("to Be Within Percentage",async({page})=>{
     expect(100).toBeWithinPercentage(100,10)
     
 })
