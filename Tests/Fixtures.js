@@ -16,6 +16,7 @@ const test= base.extend({
         await page.getByRole('combobox', { name: 'Search' }).fill('the oddyssey');
         
     }
+    
 })
 
 export {test};
