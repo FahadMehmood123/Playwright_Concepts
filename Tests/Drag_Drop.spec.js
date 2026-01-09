@@ -9,6 +9,7 @@ test(`Drag and drop functionality`,async({page})=>{
 })
 
 
+
 test(`Drag and drop Revert Dragable`,async({page})=>{
 
     await page.goto('https://demoqa.com/droppable');
@@ -29,36 +30,33 @@ test(`Drag and drop Revert Dragable`,async({page})=>{
             top:style.top,
             left:style.left
         };
-    })
+    });
     await page.waitForTimeout(2000);
-    expect(currentPosition.top).toBe(newPostion.top);
-    expect(currentPosition.left).toBe(newPostion.left);
+    expect(currentPosition.top).toEqual(newPostion.top);
+    expect(currentPosition.left).toEqual(newPostion.left);
     
-    // await page.goto('https://demoqa.com/droppable');
-    // await page.locator('#droppableExample-tab-revertable').click();
-    // await page.waitForTimeout(2000);
-    // await page.dragAndDrop(".revertable-drop-container>div>#notRevertable",".simple-drop-container>#droppable");
-    // const currentPosition_notRevertable=await page.locator('#notRevertable').evaluate((el)=>{
-    //     const style=window.getComputedStyle(el);
-    //     return{
-    //         top:style.top,
-    //         left:style.left
-    //     }
+    await page.waitForTimeout(2000);
+    await page.dragAndDrop(".revertable-drop-container>div>#notRevertable",".revertable-drop-container>#droppable");
+    const currentPosition_notRevertable=await page.locator('#notRevertable').evaluate((el)=>{
+        const style=window.getComputedStyle(el);
+        return{
+            top:style.top,
+            left:style.left
+        }
 
-    // })
+    })
 
-    // await page.dragAndDrop('#notRevertable',`.revertable-drop-container>div:nth-child(1)`);
-    // await page.waitForTimeout(2000);
-    // const newPosition_notRevertable=await page.locator('#notRevertable').evaluate((el)=>{
-    //     const style=window.getComputedStyle(el);
-    //     return{
-    //         top:style.top,
-    //         left:style.left
-    //     }
-    // })
-    // expect(currentPosition_notRevertable.top).not.toBe(newPosition_notRevertable.top);
-    // expect(currentPosition_notRevertable.left).not.toBe(newPosition_notRevertable.left);
+    await page.dragAndDrop('#notRevertable',`.revertable-drop-container>div:nth-child(1)`);
+    await page.waitForTimeout(2000);
+    const newPosition_notRevertable=await page.locator('#notRevertable').evaluate((el)=>{
+        const style=window.getComputedStyle(el);
+        return{
+            top:style.top,
+            left:style.left
+        }
+    })
+    expect(currentPosition_notRevertable.top).toEqual(newPosition_notRevertable.top);
+    expect(currentPosition_notRevertable.left).toEqual(newPosition_notRevertable.left);
     
 
 });
-
