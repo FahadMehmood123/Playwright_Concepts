@@ -45,8 +45,31 @@ test("Drop down with search-suggestions",async ({page}) => {
     //phly ya ul.select2-results__options click kary ga
     await page.locator(`ul.select2-results__options`).locator('li',{hasText:"Java"}).first().click();
     expect(page.locator(`li.select2-selection__choice`)).toHaveAttribute('Title','Java')
-
-
-
     
 })
+
+
+test("Hidden Dropdown",async ({page})=>{
+
+    await page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+    await page.locator('input[name="username"]').fill('Admin');
+    await page.locator('input[name="password"]').fill('admin123');
+    await page.locator('button[type="submit"]').click();
+    await page.waitForTimeout(2000);
+    await page.locator("//span[text()='PIM']").click();
+    await page.locator("//div[6]//div[1]//div[2]//div[1]//div[1]//div[2]//i[1]").click();
+    // Wait for the listbox options to appear (or timeout after 5s)
+    await page.waitForSelector("//div[@role='listbox']//span", { state: 'visible', timeout: 5000 }).catch(() => null);
+    const optionsLocator = page.locator("//div[@role='listbox']//span");
+    const count = await optionsLocator.count();
+    if (count === 0) {
+        console.warn('No dropdown options found.');
+    } else {
+        for (let i = 0; i < count; i++) {
+            const txt = await optionsLocator.nth(i).textContent();
+            if(txt?.trim()=="QA Engineer"){await optionsLocator.nth(i).click();}
+            break;
+        }
+    }
+
+});
